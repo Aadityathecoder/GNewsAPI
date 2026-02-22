@@ -1,24 +1,26 @@
 import requests
 
+api_key = "YOUR_API_KEY_HERE"  # replace with your actual API key
 gene = input("Enter a gene name: ")
 
-base = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+# GNews search endpoint
+url = "https://gnews.io/api/v4/search"
 
-# Search PubMed
-search_url = f"{base}esearch.fcgi?db=pubmed&term={gene}[Title/Abstract]&retmode=json&retmax=5"
-search_data = requests.get(search_url).json()
+params = {
+    "q": gene,           # search query
+    "lang": "en",        # language
+    "max": 5,            # number of articles
+    "apikey": api_key
+}
 
-ids = search_data["esearchresult"]["idlist"]
+response = requests.get(url, params=params)
+data = response.json()
 
-if not ids:
+articles = data.get("articles")
+
+if not articles:
     print("No articles found.")
 else:
-    # Get summaries
-    summary_url = f"{base}esummary.fcgi?db=pubmed&id={','.join(ids)}&retmode=json"
-    summary_data = requests.get(summary_url).json()
-
-    print(f"\nTop articles about {gene}:\n")
-
-    for uid in summary_data["result"]["uids"]:
-        title = summary_data["result"][uid]["title"]
-        print(title)
+    print(f"\nTop news articles about {gene}:\n")
+    for article in articles:
+        print("-", article["title"])
