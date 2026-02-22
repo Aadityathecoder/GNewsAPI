@@ -1,6 +1,6 @@
 import requests
 
-api_key = "YOUR_API_KEY_HERE"  # replace with your actual API key
+api_key = "YOUR_API_KEY_HERE"  # replace 
 gene = input("Enter a gene name: ")
 
 # GNews search endpoint
