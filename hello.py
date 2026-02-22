@@ -9,7 +9,7 @@ url = "https://gnews.io/api/v4/search"
 params = {
     "q": gene,           # search query
     "lang": "en",        # language
-    "max": 5,            # number of articles
+    "max": 5,            # num of articles
     "apikey": api_key
 }
 
